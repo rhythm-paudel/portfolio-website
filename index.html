@@ -3,112 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-
-        nav {
-            margin: 1rem 0;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .content {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            text-align: center;
-        }
-
-        .section {
-            margin-bottom: 2rem;
-        }
-
-        .section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #555;
-        }
-
-        .button {
-            display: inline-block;
-            background-color: #333;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 1rem;
-        }
-
-        .button:hover {
-            background-color: #555;
-        }
-    </style>
+    <title>Rhythm Paudel - Portfolio</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer src="./js/script.js"></script>
 </head>
 <body>
-    <header>
-        <h1>My Portfolio</h1>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
+    <!-- Header Section -->
+    <header id="header">
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logo">Rhythm Paudel</h1>
+                <ul class="nav-links">
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
-    <main class="content">
-        <section id="about" class="section">
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
             <h2>About Me</h2>
-            <p>Hi! I am a passionate software developer currently working on various projects including mobile and web applications. My expertise lies in full-stack development using the MERN stack, as well as mobile app development with React Native.</p>
-        </section>
+            <div class="about-content">
+                <img src="img/profile.jpg" alt="Profile Picture" class="profile-pic">
+                <p>Hello, I am Rhythm Paudel, a software developer pursuing a Bachelor's degree in Computing. I create impactful web and mobile applications and am passionate about advancing my tech skills.</p>
+            </div>
+        </div>
+    </section>
 
-        <section id="skills" class="section">
-            <h2>My Skills</h2>
-            <p>I specialize in the following technologies:</p>
+    <!-- Skills Section -->
+    <section id="skills" class="section skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">Frontend: React, Redux, HTML, CSS, JavaScript</div>
+                <div class="skill-card">Backend: Node.js, Express.js</div>
+                <div class="skill-card">Database: MongoDB</div>
+                <div class="skill-card">Mobile: React Native, Flutter</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-list">
+                <div class="project-card">
+                    <h3>Mobile Application Development</h3>
+                    <p>Developed cross-platform mobile apps with React Native.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Responsive Web Design</h3>
+                    <p>Created dynamic and responsive web pages using modern CSS techniques.</p>
+                </div>
+                <div class="project-card">
+                    <h3>UI/UX Design</h3>
+                    <p>Designed user-centric interfaces with Adobe XD and Figma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="section certifications">
+        <div class="container">
+            <h2>Certifications</h2>
             <ul>
-                <li>Frontend: React, Redux, HTML, CSS, JavaScript</li>
-                <li>Backend: Node.js, Express.js</li>
-                <li>Database: MongoDB</li>
-                <li>Mobile Development: React Native, Flutter</li>
+                <li>Designer Awards 2021</li>
+                <li>Frontend Developer Certificate</li>
+                <li>React Native Certification</li>
             </ul>
-        </section>
+        </div>
+    </section>
 
-        <section id="projects" class="section">
-            <h2>My Projects</h2>
-            <p>Check out some of my work:</p>
-            <a class="button" href="#">View Projects</a>
-        </section>
-    </main>
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <form id="contact-form">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
 
-    <footer style="text-align: center; padding: 1rem; background-color: #333; color: white;">
-        <p>&copy; 2024 My Portfolio | All Rights Reserved</p>
+    <footer>
+        <p>&copy; 2025 Rhythm Paudel. All Rights Reserved.</p>
     </footer>
 </body>
 </html>

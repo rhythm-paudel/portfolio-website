@@ -1,0 +1,82 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f9f9f9;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #222;
+}
+.section {
+    padding: 4rem 0;
+}
+.navbar {
+    background: #333;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+.nav-links a {
+    text-decoration: none;
+    margin: 0 1rem;
+    color: white;
+    font-size: 1.1rem;
+}
+.nav-links a:hover {
+    color: #f9f9f9;
+}
+.about-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+.profile-pic {
+    max-width: 200px;
+    border-radius: 50%;
+}
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+.skill-card {
+    background: #eef;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+.projects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-around;
+}
+.project-card {
+    background: #e2e2e2;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 30%;
+}
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: #333;
+    color: white;
+}
