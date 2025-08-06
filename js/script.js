@@ -10,8 +10,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         const targetPosition = targetElement.offsetTop - 80;
         const distance = targetPosition - startPosition;
         const duration = 1000;
-        let start = null;
-
+        let start = null
         function animation(currentTime) {
             if (start === null) start = currentTime;
             const timeElapsed = currentTime - start;
