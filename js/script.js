@@ -31,28 +31,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// Contact Form Handling
-document.getElementById('contact-form').addEventListener('submit', e => {
-    e.preventDefault();
-    
-    // Add futuristic loading effect
-    const submitBtn = e.target.querySelector('.submit-btn');
-    const originalText = submitBtn.querySelector('span').textContent;
-    
-    submitBtn.querySelector('span').textContent = 'Sending...';
-    submitBtn.style.opacity = '0.7';
-    
-    // Simulate sending delay
-    setTimeout(() => {
-        // Create a futuristic notification
-        showNotification('Message sent successfully! 🚀', 'success');
-        
-        submitBtn.querySelector('span').textContent = originalText;
-        submitBtn.style.opacity = '1';
-        e.target.reset();
-    }, 2000);
-});
-
 // Enhanced Cursor Trail Animation with smoother movement
 let mouseX = 0;
 let mouseY = 0;
@@ -146,6 +124,22 @@ const observer = new IntersectionObserver((entries) => {
                     item.classList.add('visible');
                 }, 200 + (index * 150));
             });
+
+            // Animate contact elements
+            const contactDesc = entry.target.querySelector('.contact-description');
+            const contactBtns = entry.target.querySelectorAll('.contact-btn');
+            
+            if (contactDesc) {
+                setTimeout(() => {
+                    contactDesc.classList.add('visible');
+                }, 200);
+            }
+            
+            contactBtns.forEach((btn, index) => {
+                setTimeout(() => {
+                    btn.classList.add('visible');
+                }, 400 + (index * 200));
+            });
         }
     });
 }, observerOptions);
@@ -206,8 +200,10 @@ function typeWriter(element, text, speed = 100) {
 // Initialize typing effect when page loads
 window.addEventListener('load', () => {
     const logo = document.querySelector('.logo');
-    const originalText = logo.textContent;
-    typeWriter(logo, originalText, 150);
+    if (logo) {
+        const originalText = logo.textContent;
+        typeWriter(logo, originalText, 150);
+    }
     
     // Show first section immediately
     const firstSection = document.querySelector('.section');
@@ -223,29 +219,50 @@ window.addEventListener('load', () => {
 });
 
 // Enhanced hover effects for skill cards
-document.querySelectorAll('.skill-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-15px) scale(1.05)';
-        card.style.boxShadow = '0 0 30px rgba(0, 255, 241, 0.4)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
-        card.style.boxShadow = 'none';
-    });
-});
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for DOM to be fully loaded before adding event listeners
+    setTimeout(() => {
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.05)';
+                card.style.boxShadow = '0 0 30px rgba(0, 255, 241, 0.4)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = 'none';
+            });
+        });
 
-// Enhanced hover effects for project cards
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-15px) scale(1.03)';
-        card.style.boxShadow = '0 0 30px rgba(255, 0, 200, 0.4)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
-        card.style.boxShadow = 'none';
-    });
+        // Enhanced hover effects for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.03)';
+                card.style.boxShadow = '0 0 30px rgba(255, 0, 200, 0.4)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = 'none';
+            });
+        });
+
+        // Enhanced hover effects for contact buttons
+        document.querySelectorAll('.contact-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'translateY(-8px) scale(1.05)';
+                
+                // Add particle effect for contact buttons
+                for (let i = 0; i < 3; i++) {
+                    createParticle(btn);
+                }
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    }, 500);
 });
 
 // Notification system
@@ -317,27 +334,7 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Add glow effect to form inputs on focus
-document.querySelectorAll('input, textarea').forEach(input => {
-    input.addEventListener('focus', () => {
-        input.style.boxShadow = '0 0 20px rgba(0, 255, 241, 0.5)';
-        input.style.borderColor = '#00fff1';
-    });
-    
-    input.addEventListener('blur', () => {
-        input.style.boxShadow = 'none';
-        input.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-    });
-});
-
-// Add particle effect to submit button
-document.querySelector('.submit-btn').addEventListener('mouseenter', function() {
-    // Create particles
-    for (let i = 0; i < 5; i++) {
-        createParticle(this);
-    }
-});
-
+// Particle effect function (used for contact buttons and other hover effects)
 function createParticle(button) {
     const particle = document.createElement('div');
     particle.style.cssText = `
@@ -392,47 +389,40 @@ window.addEventListener('beforeunload', () => {
     });
 });
 
-// Soft Skills Modal functionality
-const softSkillsBtn = document.querySelector('.soft-skills-readmore');
-const softSkillsModal = document.getElementById('softSkillsModal');
-const closeModalBtn = document.querySelector('.close-modal');
-
-if (softSkillsBtn && softSkillsModal && closeModalBtn) {
-    softSkillsBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        softSkillsModal.style.display = 'flex';
-        setTimeout(() => {
-            softSkillsModal.classList.add('show');
-        }, 10);
-    });
-    closeModalBtn.addEventListener('click', () => {
-        softSkillsModal.classList.remove('show');
-        setTimeout(() => {
-            softSkillsModal.style.display = 'none';
-        }, 200);
-    });
-    window.addEventListener('click', (e) => {
-        if (e.target === softSkillsModal) {
-            softSkillsModal.classList.remove('show');
-            setTimeout(() => {
-                softSkillsModal.style.display = 'none';
-            }, 200);
-        }
-    });
-}
-
 // Soft Skills Read More (expand/collapse in card)
-const softSkillsReadMoreBtn = document.getElementById('softSkillsReadMoreBtn');
-const moreSoftSkills = document.getElementById('more-soft-skills');
+document.addEventListener('DOMContentLoaded', () => {
+    const softSkillsReadMoreBtn = document.getElementById('softSkillsReadMoreBtn');
+    const moreSoftSkills = document.getElementById('more-soft-skills');
 
-if (softSkillsReadMoreBtn && moreSoftSkills) {
-    softSkillsReadMoreBtn.addEventListener('click', () => {
-        if (moreSoftSkills.style.display === 'none' || moreSoftSkills.style.display === '') {
-            moreSoftSkills.style.display = 'inline';
-            softSkillsReadMoreBtn.textContent = 'Show less';
-        } else {
-            moreSoftSkills.style.display = 'none';
-            softSkillsReadMoreBtn.textContent = 'Read more';
+    if (softSkillsReadMoreBtn && moreSoftSkills) {
+        softSkillsReadMoreBtn.addEventListener('click', () => {
+            if (moreSoftSkills.style.display === 'none' || moreSoftSkills.style.display === '') {
+                moreSoftSkills.style.display = 'inline';
+                softSkillsReadMoreBtn.textContent = 'Show less';
+            } else {
+                moreSoftSkills.style.display = 'none';
+                softSkillsReadMoreBtn.textContent = 'Read more';
+            }
+        });
+    }
+});
+
+// Add cursor trail styles if not already present
+if (!document.querySelector('style[data-cursor-trail]')) {
+    const cursorTrailStyles = document.createElement('style');
+    cursorTrailStyles.setAttribute('data-cursor-trail', 'true');
+    cursorTrailStyles.textContent = `
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #00fff1;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.8;
+            transition: all 0.1s ease;
         }
-    });
+    `;
+    document.head.appendChild(cursorTrailStyles);
 }
