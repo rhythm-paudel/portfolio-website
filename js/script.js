@@ -9,8 +9,9 @@
   // --- State ---
   let currentSection = 0;
   const totalSections = 6;
+  const MOBILE_BREAKPOINT = 1100;
   let isTransitioning = false;
-  let isMobile = window.innerWidth <= 900;
+  let isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   // DOM
   const portfolio = document.getElementById('portfolio');
@@ -21,10 +22,24 @@
   const cursorDot = document.getElementById('cursorDot');
   const menuToggle = document.getElementById('menuToggle');
   const mobileNav = document.getElementById('mobileNav');
-  const mobileLinks = mobileNav ? mobileNav.querySelectorAll('a') : [];
+  const mobileLinks = mobileNav ? mobileNav.querySelectorAll('[data-section]') : [];
+  const topBar = document.getElementById('topBar');
   const heroProfile = document.getElementById('heroProfile');
 
   // --- Horizontal Scroll (Desktop) ---
+  function scrollToMobileSection(index, instant) {
+    const sections = portfolio.querySelectorAll('.section');
+    const section = sections[index];
+    if (!section) return;
+
+    const topBarHeight = topBar ? topBar.offsetHeight : 0;
+    const targetY = section.offsetTop - topBarHeight - 12;
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      behavior: instant ? 'auto' : 'smooth'
+    });
+  }
+
   function goToSection(index, instant) {
     if (index < 0 || index >= totalSections) return;
     if (isTransitioning && !instant) return;
@@ -36,10 +51,7 @@
       const offset = -index * 100;
       portfolio.style.transform = `translateX(${offset}vw)`;
     } else {
-      const sections = portfolio.querySelectorAll('.section');
-      if (sections[index]) {
-        sections[index].scrollIntoView({ behavior: instant ? 'auto' : 'smooth' });
-      }
+      scrollToMobileSection(index, instant);
     }
 
     updateNav();
@@ -73,8 +85,28 @@
   let scrollAccumulator = 0;
   const scrollThreshold = 60;
 
+  function shouldAllowSectionScroll(deltaY) {
+    const sections = portfolio ? portfolio.querySelectorAll('.section') : [];
+    const activeSection = sections[currentSection];
+    if (!activeSection) return false;
+
+    const isScrollable = activeSection.scrollHeight > activeSection.clientHeight + 1;
+    if (!isScrollable) return false;
+
+    const atTop = activeSection.scrollTop <= 1;
+    const atBottom = activeSection.scrollTop + activeSection.clientHeight >= activeSection.scrollHeight - 1;
+
+    if (deltaY > 0 && !atBottom) return true;
+    if (deltaY < 0 && !atTop) return true;
+
+    return false;
+  }
+
   function handleWheel(e) {
     if (isMobile) return;
+    if (shouldAllowSectionScroll(e.deltaY)) {
+      return;
+    }
     e.preventDefault();
 
     scrollAccumulator += e.deltaY;
@@ -147,11 +179,13 @@
 
   mobileLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      e.preventDefault();
       const idx = parseInt(link.dataset.section, 10);
+      e.stopPropagation();
       menuToggle.classList.remove('open');
       mobileNav.classList.remove('open');
-      goToSection(idx);
+      if (!Number.isNaN(idx)) {
+        goToSection(idx);
+      }
     });
   });
 
@@ -297,7 +331,7 @@
   // --- Resize Handler ---
   function handleResize() {
     const wasMobile = isMobile;
-    isMobile = window.innerWidth <= 900;
+    isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
     if (wasMobile !== isMobile) {
       if (!isMobile) {
